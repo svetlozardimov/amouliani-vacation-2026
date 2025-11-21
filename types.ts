@@ -8,6 +8,7 @@ export interface TimeLeft {
 export enum DayType {
   REGULAR = 'REGULAR',
   VACATION = 'VACATION',
+  TRAVEL = 'TRAVEL',
   EMPTY = 'EMPTY'
 }
 

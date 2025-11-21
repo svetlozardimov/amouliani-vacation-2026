@@ -26,10 +26,16 @@ const Calendar: React.FC<CalendarProps> = ({ onBirthdayClick }) => {
     // Add actual days
     for (let i = 1; i <= daysInMonth; i++) {
       let type = DayType.REGULAR;
+      
+      // 13th is Travel/Petrich
+      if (i === 13) {
+        type = DayType.TRAVEL;
+      } 
       // Vacation is 14th to 21st inclusive
-      if (i >= 14 && i <= 21) {
+      else if (i >= 14 && i <= 21) {
         type = DayType.VACATION;
       }
+      
       data.push({ day: i, type: type });
     }
 
@@ -66,6 +72,7 @@ const Calendar: React.FC<CalendarProps> = ({ onBirthdayClick }) => {
             }
 
             const isVacation = cell.type === DayType.VACATION;
+            const isTravel = cell.type === DayType.TRAVEL;
             const isStart = cell.day === 14;
             const isEnd = cell.day === 21;
             const isBirthday = cell.day === 18;
@@ -73,6 +80,11 @@ const Calendar: React.FC<CalendarProps> = ({ onBirthdayClick }) => {
             // Dynamic classes based on day type
             let bgClass = 'text-slate-600 hover:bg-slate-50 bg-white border border-slate-100 shadow-sm';
             
+            if (isTravel) {
+              // Orange/Amber for Travel/Petrich
+              bgClass = 'bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md font-bold border-transparent transform hover:scale-105 z-10';
+            }
+
             if (isVacation) {
                // Beautiful Gradient for vacation
                bgClass = 'bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-md font-bold border-transparent transform hover:scale-105 z-10';
@@ -93,7 +105,7 @@ const Calendar: React.FC<CalendarProps> = ({ onBirthdayClick }) => {
                   ${isStart && !isBirthday ? 'ring-2 ring-offset-1 ring-yellow-400' : ''}
                   ${isEnd ? 'ring-2 ring-offset-1 ring-yellow-400' : ''}
                 `}
-                title={isBirthday ? "Кликни за изненада!" : undefined}
+                title={isBirthday ? "Кликни за изненада!" : isTravel ? "Нощувка в Петрич" : undefined}
               >
                 <span className="relative z-10">{cell.day}</span>
                 
@@ -112,14 +124,18 @@ const Calendar: React.FC<CalendarProps> = ({ onBirthdayClick }) => {
         </div>
         
         {/* Legend */}
-        <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs font-medium text-slate-500">
-           <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 rounded-full border border-slate-100">
-              <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full shadow-sm"></div>
-              <span>Почивка</span>
+        <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs font-medium text-slate-500">
+           <div className="flex items-center gap-2 px-2 py-1 bg-slate-50 rounded-full border border-slate-100">
+              <div className="w-3 h-3 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full shadow-sm"></div>
+              <span>Петрич</span>
            </div>
-           <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 rounded-full border border-slate-100">
+           <div className="flex items-center gap-2 px-2 py-1 bg-slate-50 rounded-full border border-slate-100">
+              <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full shadow-sm"></div>
+              <span>Амуляни</span>
+           </div>
+           <div className="flex items-center gap-2 px-2 py-1 bg-slate-50 rounded-full border border-slate-100">
               <div className="w-3 h-3 bg-gradient-to-br from-fuchsia-500 to-rose-500 rounded-full shadow-sm"></div>
-              <span>РД на Галя</span>
+              <span>РД Галя</span>
            </div>
         </div>
       </div>

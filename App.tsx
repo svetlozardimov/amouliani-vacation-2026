@@ -11,7 +11,6 @@ const App: React.FC = () => {
   const [showBirthday, setShowBirthday] = useState<boolean>(false);
 
   useEffect(() => {
-    // Load initial AI tip
     handleLoadTip();
   }, []);
 
@@ -30,12 +29,11 @@ const App: React.FC = () => {
     <div 
       className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed flex flex-col relative font-sans"
       style={{ 
-        // Brighter, clearer Greek water image
         backgroundImage: "url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=2572&auto=format&fit=crop')" 
       }}
     >
-      {/* Light overlay to ensure text readability without killing the vibe */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/30 via-transparent to-blue-900/40 mix-blend-multiply" />
+      {/* Light overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/30 via-transparent to-blue-900/40 mix-blend-multiply pointer-events-none" />
 
       {/* Birthday Modal Overlay */}
       {showBirthday && (
@@ -43,7 +41,7 @@ const App: React.FC = () => {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer"
           onClick={toggleBirthday}
         >
-          {/* Confetti Containers (CSS based) */}
+          {/* Confetti */}
           {[...Array(20)].map((_, i) => (
             <div 
               key={i} 
@@ -61,7 +59,7 @@ const App: React.FC = () => {
 
           <div 
             className="bg-white rounded-3xl p-8 sm:p-12 max-w-lg w-[90%] text-center relative overflow-hidden animate-[bounce-in_0.6s_cubic-bezier(0.68,-0.55,0.27,1.55)] shadow-[0_0_50px_rgba(255,255,255,0.5)]"
-            onClick={(e) => e.stopPropagation()} // Don't close if clicking inside card
+            onClick={(e) => e.stopPropagation()}
           >
             <button 
               onClick={toggleBirthday}
@@ -71,7 +69,6 @@ const App: React.FC = () => {
             </button>
             
             <div className="mb-6 relative">
-              {/* Animated Cake */}
               <div className="text-9xl animate-bounce drop-shadow-2xl transform hover:scale-110 transition-transform duration-300 cursor-pointer">
                 🎂
               </div>
@@ -98,7 +95,6 @@ const App: React.FC = () => {
             </button>
           </div>
           
-          {/* Custom Keyframes for this modal */}
           <style>{`
             @keyframes fall {
               0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
@@ -138,20 +134,20 @@ const App: React.FC = () => {
         {/* Main Content Grid */}
         <main className="flex-grow container mx-auto px-4 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Left Column: Calendar (Takes 4 cols on large screens) */}
+          {/* Left Column: Calendar */}
           <div className="lg:col-span-4 flex justify-center lg:justify-start order-2 lg:order-1">
             <div className="sticky top-8 w-full max-w-md">
                <Calendar onBirthdayClick={toggleBirthday} />
             </div>
           </div>
 
-          {/* Right Column: Info Cards (Takes 8 cols) */}
+          {/* Right Column: Info Cards */}
           <div className="lg:col-span-8 flex flex-col gap-6 order-1 lg:order-2">
             
             {/* Crew List Card */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               
-              {/* Buyuklekovi - First Position - Blue/Sky Theme */}
+              {/* Buyuklekovi - Sky Theme */}
               <div className="bg-sky-600/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-sky-400 text-white">
                 <h3 className="text-xl font-bold mb-3 border-b border-sky-400 pb-2 flex items-center gap-2">
                   🏖️ Отбор Бюйлекови
@@ -182,7 +178,7 @@ const App: React.FC = () => {
                 </ul>
               </div>
 
-              {/* Dimovi - Second Position - Teal Theme */}
+              {/* Dimovi - Teal Theme */}
               <div className="bg-teal-600/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-teal-400 text-white">
                 <h3 className="text-xl font-bold mb-3 border-b border-teal-400 pb-2 flex items-center gap-2">
                   🚤 Отбор Димови
@@ -209,7 +205,7 @@ const App: React.FC = () => {
 
             </div>
 
-            {/* Playful Notice for Buyuklekovi */}
+            {/* Playful Notice */}
             <div className="bg-yellow-100/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border-l-8 border-yellow-500 text-slate-800 flex items-start gap-3">
               <span className="text-2xl">🔔</span>
               <div>
@@ -221,48 +217,82 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* AI Inspiration */}
-            <div className="bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/50">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-bold text-slate-700 flex items-center gap-2">
-                  <span className="text-purple-600">✨</span> 
-                  AI Съвет за групата
-                </h3>
-                <button 
-                  onClick={handleLoadTip}
-                  disabled={loadingTip}
-                  className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition-colors font-bold uppercase tracking-wider"
-                >
-                  {loadingTip ? 'Мисли...' : 'Друг факт'}
-                </button>
+            {/* Trip Details */}
+            <div className="bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-700 text-white">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-2 border-b border-slate-600 pb-2">
+                   <span className="text-2xl">🗺️</span>
+                   <h3 className="font-bold text-lg">Програма на пътуването</h3>
+                </div>
+
+                <div className="flex items-center gap-4 bg-white/5 p-3 rounded-xl">
+                   <div className="w-10 h-10 bg-amber-500 flex items-center justify-center rounded-full font-bold text-white shadow-md shrink-0">
+                     13
+                   </div>
+                   <div className="flex-grow">
+                      <div className="font-bold text-amber-300">Нощувка в Петрич</div>
+                      <div className="text-xs text-slate-300">Подгряваща вечер</div>
+                   </div>
+                </div>
+
+                <div className="flex items-center gap-4 bg-gradient-to-r from-sky-900/50 to-blue-900/50 p-3 rounded-xl border border-sky-500/30">
+                   <div className="w-10 h-10 bg-sky-500 flex items-center justify-center rounded-full font-bold text-white shadow-md shrink-0">
+                     14
+                   </div>
+                   <div className="flex-grow">
+                      <div className="font-bold text-sky-300">Амуляни, Гърция</div>
+                      <div className="text-xs text-slate-300">Начало на приключението</div>
+                   </div>
+                </div>
+
+                <div className="flex items-center gap-4 bg-white/5 p-3 rounded-xl">
+                   <div className="w-10 h-10 bg-slate-700 flex items-center justify-center rounded-full font-bold text-white shadow-md shrink-0">
+                     21
+                   </div>
+                   <div className="flex-grow">
+                      <div className="font-bold text-slate-300">Край на почивката</div>
+                      <div className="text-xs text-slate-400">Обратно към реалността</div>
+                   </div>
+                </div>
               </div>
-              <p className="text-slate-600 italic text-center sm:text-left">
-                "{loadingTip ? 'Зареждане на мъдрост...' : tip}"
-              </p>
             </div>
 
-            {/* Trip Details Mini Card */}
-            <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-2xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
-              <div className="flex items-center gap-3">
-                 <div className="p-2 bg-sky-500 rounded-lg">
-                    📅
-                 </div>
-                 <div>
-                    <div className="font-bold text-lg">14 - 21 Юни, 2026</div>
-                    <div className="text-slate-300 text-sm">Старт: 10:00 сутринта</div>
-                 </div>
-              </div>
-              <div className="text-right hidden sm:block">
-                 <div className="font-bold">Остров Амуляни</div>
-                 <div className="text-slate-400 text-xs">Гърция</div>
+            {/* AI Tip Section */}
+            <div className="bg-indigo-900/60 backdrop-blur-md p-6 rounded-2xl border border-indigo-500/30 shadow-xl">
+              <div className="flex items-start gap-4">
+                <div className="bg-indigo-500 p-3 rounded-full shadow-lg">
+                  <span className="text-2xl">✨</span>
+                </div>
+                <div className="flex-grow">
+                   <h3 className="text-lg font-bold text-indigo-200 mb-2">Съвет от AI за Амуляни</h3>
+                   {loadingTip ? (
+                     <div className="animate-pulse flex space-x-4">
+                       <div className="flex-1 space-y-2 py-1">
+                         <div className="h-4 bg-indigo-400/30 rounded w-3/4"></div>
+                         <div className="h-4 bg-indigo-400/30 rounded"></div>
+                       </div>
+                     </div>
+                   ) : (
+                     <p className="text-white/90 italic leading-relaxed">
+                       "{tip}"
+                     </p>
+                   )}
+                   <button 
+                    onClick={handleLoadTip}
+                    className="mt-4 text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded-full transition-colors"
+                   >
+                     🔄 Нов съвет
+                   </button>
+                </div>
               </div>
             </div>
 
           </div>
         </main>
-        
-        <footer className="py-8 text-center text-white/90 text-sm bg-gradient-to-t from-blue-900/80 to-transparent">
-          <p>&copy; 2026 Бюйлекови & Димови Турс. Всички права запазени (най-вече на жените).</p>
+
+        {/* Footer */}
+        <footer className="bg-black/30 backdrop-blur-sm py-6 text-center text-white/50 text-sm">
+          <p>© {new Date().getFullYear()} Бюйлекови & Димови | Обратно броене до рая</p>
         </footer>
       </div>
     </div>
